@@ -9,6 +9,7 @@ using WeatherBot.OpenWeatherMap;
 
 namespace WeatherBot
 {
+    [Serializable]
     public class WeatherParam
     {
         public DateTime When { get; set; }

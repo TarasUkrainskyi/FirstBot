@@ -10,6 +10,7 @@ using Newtonsoft.Json;
 using WeatherBot.OpenWeatherMap;
 using System.Text;
 using WeatherBot.Enums;
+using Microsoft.Bot.Builder.Dialogs;
 
 namespace WeatherBot
 {
@@ -24,26 +25,36 @@ namespace WeatherBot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                StateClient stateClient = activity.GetStateClient();
-                BotData userData = await stateClient.BotState.GetUserDataAsync(activity.ChannelId, activity.From.Id);
-                var WeatherParamTemp = userData.GetProperty<WeatherParam>("weather");
-                if (WeatherParamTemp != null)
-                    weatherParam = WeatherParamTemp;
-              
-                var repl = await Reply(activity.Text);
-                ConnectorClient connector = new ConnectorClient(new Uri(activity.ServiceUrl));                
-                Activity reply = activity.CreateReply(repl);
-                userData.SetProperty<WeatherParam>("weather", weatherParam);
-                await stateClient.BotState.SetUserDataAsync(activity.ChannelId, activity.From.Id, userData);
-                await connector.Conversations.ReplyToActivityAsync(reply);
+                await Conversation.SendAsync(activity,
+                    () =>
+                        new WeatherDialog()
+                        .ContinueWith<WeatherParam, string>(
+                            async (ctx, wpa) =>
+                            {
+                                var wp = await wpa;
+                                return new ChoiceDialog($"Do you want to subscribe to weather in {wp.Location}?", new string[] { "Yes", "No" });
+                            })
+                        .Do(
+                            async (ctx, sta) =>
+                            {
+                                var s = await sta;
+
+                                if (s.ToLower().CompareTo("yes") == 0)
+                                {
+                                    await ctx.PostAsync("You are subscribe");
+                                }
+                                else
+                                {
+                                    await ctx.PostAsync("Canceled subscribe");
+                                }
+                            }));
             }
             else
             {
                 HandleSystemMessage(activity);
             }
 
-            var response = Request.CreateResponse(HttpStatusCode.OK);
-            return response;
+            return new HttpResponseMessage(HttpStatusCode.OK);
         }       
 
         string NextTo(string[] str, string pat)
