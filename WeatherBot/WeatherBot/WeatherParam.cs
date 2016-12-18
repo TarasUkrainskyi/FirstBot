@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Bot.Builder.FormFlow;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,15 +13,23 @@ namespace WeatherBot
     [Serializable]
     public class WeatherParam
     {
-        public DateTime When { get; set; }
+        public static IForm<WeatherParam> BuildForm()
+        {
+            return new FormBuilder<WeatherParam>()
+                .Message("Welcome to weather bot")
+                .Build();
+        }
 
+        [Prompt("Please enter location to get in")]
         public string Location { get; set; }
 
+        public DateTime When { get; set; }
+        
         public Measurement MeasurementType { get; set; }
 
         public WeatherParam()
         {
-            Location = "Uzhgorod";
+            //Location = "Uzhgorod";
             When = DateTime.Now;
             MeasurementType = Measurement.Temp;
         }

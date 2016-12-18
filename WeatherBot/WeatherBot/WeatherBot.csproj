@@ -153,6 +153,7 @@
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ChoiceDialog.cs" />
+    <Compile Include="Dialogs\WeatherLuisDialog.cs" />
     <Compile Include="Enums\MeasurementEnum.cs" />
     <Compile Include="WeatherDialog.cs" />
     <Compile Include="WeatherParam.cs" />

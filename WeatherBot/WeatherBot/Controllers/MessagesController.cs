@@ -11,6 +11,7 @@ using WeatherBot.OpenWeatherMap;
 using System.Text;
 using WeatherBot.Enums;
 using Microsoft.Bot.Builder.Dialogs;
+using Microsoft.Bot.Builder.FormFlow;
 
 namespace WeatherBot
 {
@@ -27,11 +28,12 @@ namespace WeatherBot
             {
                 await Conversation.SendAsync(activity,
                     () =>
-                        new WeatherDialog()
+                        FormDialog.FromForm<WeatherParam>(WeatherParam.BuildForm)
                         .ContinueWith<WeatherParam, string>(
                             async (ctx, wpa) =>
                             {
                                 var wp = await wpa;
+                                await ctx.PostAsync(await wp.BuildResult());
                                 return new ChoiceDialog($"Do you want to subscribe to weather in {wp.Location}?", new string[] { "Yes", "No" });
                             })
                         .Do(
