@@ -29,7 +29,7 @@ namespace WeatherBot
 
         public WeatherParam()
         {
-            //Location = "Uzhgorod";
+            Location = "Uzhgorod";
             When = DateTime.Now;
             MeasurementType = Measurement.Temp;
         }
@@ -84,6 +84,38 @@ namespace WeatherBot
             }
             if (stringBuilder.Length == 0) return "I do not understand";
             else return stringBuilder.ToString();
+        }
+
+        public async Task<string> BuildResultOnDate()
+        {
+            //API Key OpenWeatherMap = "0cdba8c6da79d5a786f2944ce5bd4ea8"
+            WeatherClient weatherClient = new WeatherClient("0cdba8c6da79d5a786f2944ce5bd4ea8");
+            var forecastArray = await weatherClient.Forecast(Location);
+            var forecast = forecastArray.SingleOrDefault(f => f.When.Date == When.Date);
+            StringBuilder stringBuilder = new StringBuilder();
+
+            if (forecast != null)
+            {
+                if (Measure(Measurement.Temp))
+                {
+                    stringBuilder.Append($"The temperature on {forecast.Date} in {Location} is {forecast.Temp}\n\n");
+                }
+                if (Measure(Measurement.Pressure))
+                {
+                    stringBuilder.Append($"The pressure on {forecast.Date} in {Location} is {forecast.Pressure}\n\n");
+                }
+                if (Measure(Measurement.Humidity))
+                {
+                    stringBuilder.Append($"The humidity on {forecast.Date} in {Location} is {forecast.Humidity}\n\n");
+                }
+                if (stringBuilder.Length == 0) return "Sorry, empty or unknown parameter.\n\n";
+                else return stringBuilder.ToString();
+            }
+            else
+            {
+                stringBuilder.Append("Sorry, I was not able to get forecast.\n\n");
+                return stringBuilder.ToString();
+            }            
         }
     }
 }

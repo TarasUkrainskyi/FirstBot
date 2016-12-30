@@ -154,6 +154,8 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="ChoiceDialog.cs" />
     <Compile Include="Dialogs\WeatherLuisDialog.cs" />
+    <Compile Include="Dialogs\EasyERPLuisDialog.cs" />
+    <Compile Include="Dialogs\CommonLuisDialog.cs" />
     <Compile Include="Enums\MeasurementEnum.cs" />
     <Compile Include="WeatherDialog.cs" />
     <Compile Include="WeatherParam.cs" />
@@ -168,6 +170,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="packages.config" />
+    <None Include="Properties\PublishProfiles\ThinkBot - Web Deploy.pubxml" />
+    <None Include="Properties\PublishProfiles\ThinkBot.pubxml" />
     <None Include="Properties\PublishProfiles\UkrainskyiWeatherBot - Web Deploy.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

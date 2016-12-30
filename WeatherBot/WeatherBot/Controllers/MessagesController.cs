@@ -27,7 +27,7 @@ namespace WeatherBot
         {
             if (activity.Type == ActivityTypes.Message)
             {
-                await Conversation.SendAsync(activity, () => new WeatherLuisDialog());
+                await Conversation.SendAsync(activity, () => new LuisDialog());
             }
             else
             {
