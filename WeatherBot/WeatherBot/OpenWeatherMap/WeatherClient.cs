@@ -18,21 +18,44 @@ namespace WeatherBot.OpenWeatherMap
         }
 
         public async Task<WeatherRecord[]> Forecast(string city)
-        {            
-            var res = await cli.GetStringAsync($"http://api.openweathermap.org/data/2.5/forecast/daily?q={city}&mode=json&units=metric&cnt=7&APPID={AppID}");
-            var f = new List<WeatherRecord>();
-            dynamic x = Newtonsoft.Json.JsonConvert.DeserializeObject(res);
-            foreach (var z in x.list)
+        {
+            try
             {
-                f.Add(new WeatherRecord()
+                var res = await cli.GetStringAsync($"http://api.openweathermap.org/data/2.5/forecast/daily?q={city}&mode=json&units=metric&cnt=7&APPID={AppID}");
+                var f = new List<WeatherRecord>();
+                dynamic x = Newtonsoft.Json.JsonConvert.DeserializeObject(res);
+                string cityName = x.city.name;
+
+                if (city.ToLower().CompareTo(cityName.ToLower()) != 0)
                 {
-                    When = Convert((long)z.dt),
-                    Temp = z.temp.day,
-                    Pressure = z.pressure,
-                    Humidity = z.humidity,
-                });
+                    f.Add(new WeatherRecord()
+                    {
+                        City = cityName
+                    });
+
+                    return f.ToArray();
+                }
+                 
+
+                foreach (var z in x.list)
+                {
+                    f.Add(new WeatherRecord()
+                    {
+                        When = Convert((long)z.dt),
+                        Temp = z.temp.day,
+                        Pressure = z.pressure,
+                        Humidity = z.humidity,
+                        City = cityName
+                    });
+                }
+
+                return f.ToArray();
             }
-            return f.ToArray();
+            catch
+            {
+                return new List<WeatherRecord>().ToArray();
+            }            
+            
         }
         private DateTime Convert(long x)
         {

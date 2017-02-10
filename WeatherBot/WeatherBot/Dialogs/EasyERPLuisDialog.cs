@@ -18,12 +18,12 @@ namespace WeatherBot.Dialogs
         public async Task ProcessNoteWork(IDialogContext context, LuisResult result)
         {
             string message = @"Please, send me description of your issue (if possible, with screenshots ) on  norbert@easyerp.com";
-
+            
             EntityRecommendation entityConteiner;
             if (result.TryFindEntity("parameters-easyerp", out entityConteiner))
             {
                 if (entityConteiner.Entity.Contains("demo"))
-                {
+                {                    
                     message = @"Please, turn off Adblock or other or other web browser extensions";
                 }
             }

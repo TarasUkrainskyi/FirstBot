@@ -8,11 +8,11 @@ using System.Web;
 namespace WeatherBot
 {
     [Serializable]
-    public class ChoiceDialog : IDialog<string>
+    public class ChoiceDialogTemp : IDialog<string>
     {
         protected string msg;
         protected List<string> opts = new List<string>();
-        public ChoiceDialog(string msg, IEnumerable<string> opts)
+        public ChoiceDialogTemp(string msg, IEnumerable<string> opts)
         {
             this.msg = msg;
             foreach (var x in opts) { this.opts.Add(x); }

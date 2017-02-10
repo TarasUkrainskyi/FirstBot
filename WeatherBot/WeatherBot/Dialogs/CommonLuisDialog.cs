@@ -28,7 +28,7 @@ namespace WeatherBot.Dialogs
         
         [LuisIntent("Hello")]
         public async Task ProcessHello(IDialogContext context, LuisResult result)
-        {
+        {            
             var messages = new string[]
                  {
                     "Hello!",
@@ -40,6 +40,9 @@ namespace WeatherBot.Dialogs
                  };
 
             var message = messages[(new Random()).Next(messages.Count() - 1)];
+
+            if (result.Query.Contains("hello") && result.Query.Contains("Bye"))
+                message = "You are welcome! :-)";
 
             await context.PostAsync("Intent: Hello\n\n Answer: " + message);
 
@@ -207,6 +210,14 @@ namespace WeatherBot.Dialogs
 
         [LuisIntent("Wrong")]
         public async Task ProcessWrong(IDialogContext context, LuisResult result)
+        {
+            await context.PostAsync("Intent: Wrong\n\n Answer: Empty");
+
+            context.Wait(MessageReceived);
+        }
+
+        [LuisIntent("Wait")]
+        public async Task ProcessWait(IDialogContext context, LuisResult result)
         {
             await context.PostAsync("Intent: Wrong\n\n Answer: Empty");
 

@@ -21,5 +21,7 @@ namespace WeatherBot.OpenWeatherMap
             get { return When.ToString("D"); }
         }
 
+        public string City { get; set; }
+
     }
 }

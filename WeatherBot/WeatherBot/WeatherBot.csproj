@@ -152,14 +152,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\WebApiConfig.cs" />
-    <Compile Include="ChoiceDialog.cs" />
+    <Compile Include="Dialogs\ChoiceDialog.cs" />
+    <Compile Include="Dialogs\AboutCompanyLuisDialog.cs" />
+    <Compile Include="Dialogs\AboutCompanyDialog.cs" />
     <Compile Include="Dialogs\WeatherLuisDialog.cs" />
     <Compile Include="Dialogs\EasyERPLuisDialog.cs" />
     <Compile Include="Dialogs\CommonLuisDialog.cs" />
     <Compile Include="Enums\MeasurementEnum.cs" />
-    <Compile Include="WeatherDialog.cs" />
-    <Compile Include="WeatherParam.cs" />
-    <None Include="Controllers\MessagesController - Copy.cs.bak" />
+    <Compile Include="Dialogs\WeatherDialog.cs" />
+    <Compile Include="Parametres\CompanyModel.cs" />
+    <Compile Include="Parametres\WeatherParam.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
