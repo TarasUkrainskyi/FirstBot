@@ -161,6 +161,7 @@
     <Compile Include="Enums\MeasurementEnum.cs" />
     <Compile Include="Dialogs\WeatherDialog.cs" />
     <Compile Include="Parametres\CompanyModel.cs" />
+    <Compile Include="Parametres\CompanyParam.cs" />
     <Compile Include="Parametres\WeatherParam.cs" />
     <Compile Include="Controllers\MessagesController.cs" />
     <Compile Include="Global.asax.cs">
@@ -182,7 +183,9 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <Folder Include="Models\" />
+  </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>

@@ -229,16 +229,16 @@ namespace WeatherBot.Dialogs
             context.Wait(MessageReceived);
         }
 
-        [LuisIntent("AboutThinkmobiles")]
-        public async Task ProcessAboutThinkmobiles(IDialogContext context, LuisResult result)
-        {
-            string str = result.Query;
+        //[LuisIntent("AboutThinkmobiles")]
+        //public async Task ProcessAboutThinkmobiles(IDialogContext context, LuisResult result)
+        //{
+        //    string str = result.Query;
 
-            if (str.Contains("based"))
-                await context.PostAsync("Intent: AboutThinkmobiles\n\n Answer: We are based in Ukraine");
+        //    if (str.Contains("based"))
+        //        await context.PostAsync("Intent: AboutThinkmobiles\n\n Answer: We are based in Ukraine");
                         
-            context.Wait(MessageReceived);
-        }
+        //    context.Wait(MessageReceived);
+        //}
 
         [LuisIntent("GetSource")]
         public async Task ProcessGetSource(IDialogContext context, LuisResult result)
